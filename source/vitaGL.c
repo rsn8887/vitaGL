@@ -924,6 +924,7 @@ void vglInit(uint32_t gpu_pool_size){
 			DISPLAY_STRIDE,
 			gxm_color_surfaces_addr[i]);
 
+		sceGxmColoSurfaceSetGammaMode(&gxm_color_surfaces[i], SCE_GXM_COLOR_SURFACE_GAMMA_BGR);
 		sceGxmSyncObjectCreate(&gxm_sync_objects[i]);
 	}
 	
@@ -2105,6 +2106,7 @@ void glTexImage2D(GLenum target, GLint level, GLint internalFormat, GLsizei widt
 				gpu_alloc_texture(width, height, tex_format, data, tex);
 				sceGxmTextureSetMinFilter(&tex->gxm_tex, tex->min_filter);
 				sceGxmTextureSetMagFilter(&tex->gxm_tex, tex->mag_filter);
+				sceGxmTextureSetGammaMode(&tex->gxm_tex, SCE_GXM_TEXTURE_GAMMA_BGR)
 			}else gpu_alloc_mipmaps(width, height, tex_format, data, level, tex);
 			if (tex->valid && tex->palette_UID) sceGxmTextureSetPalette(&tex->gxm_tex, color_table->data);
 			break;
